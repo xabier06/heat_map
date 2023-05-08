@@ -1,0 +1,21 @@
+import matplotlib.pyplot as plt 
+import pandas as pd  
+import seaborn as sns 
+
+df = pd.read_csv("https://raw.githubusercontent.com/kshedden/statswpy/master/NHANES/merged/nhanes_2015_2016.csv")
+df.columns
+
+df.isna().sum()
+df.dropna(inplace=True)
+
+keep = ['BPXSY1', 'BPXDI1', 'BPXSY2',
+       'BPXDI2', 'BMXWT', 'BMXHT', 'BMXBMI', 'BMXLEG', 'BMXARML', 'BMXARMC',
+       'BMXWAIST']
+df = df[keep]
+
+correlation_matrix = df.corr().round(2)
+correlation_matrix
+
+plt.figure(figsize=(10, 6))
+sns.heatmap(data=correlation_matrix, annot=True)
+plt.show()
